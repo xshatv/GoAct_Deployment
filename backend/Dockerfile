@@ -1,0 +1,24 @@
+# Specifies a parent image
+FROM golang:1.19
+
+# Creates an app directory to hold your app’s source code
+WORKDIR /app
+ 
+# Copies everything from your root directory into /app
+COPY go.sum go.mod ./
+
+# Installs Go dependencies
+RUN go mod download
+
+# Copying all files with .go extension
+COPY *.go ./
+
+# Builds your app with optional configuration
+RUN go get ./...
+RUN DB_HOST=<POSTGRES_HOST> DB_USER=<POSTGRES_USER> DB_PASSWORD=<POSTGRES_PASSWORD> DB_NAME=<POSTGRES_DB_NAME> DB_PORT=<POSTGRES_PORT> ALLOWED_ORIGINS=<ALLOWED_ORGINS_VALUE> go run main.go
+
+# Tells Docker which network port your container listens on
+EXPOSE 8080
+ 
+# Specifies the executable command that runs when the container starts
+CMD [ “/godocker” ]
