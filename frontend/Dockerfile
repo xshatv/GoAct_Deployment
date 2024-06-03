@@ -17,5 +17,5 @@ EXPOSE 3000
 
 # Execute post launching of conatainer
 CMD ["npm", "start"]
-CMD ["npm", "./src/index.js"]
+#CMD ["npm", "./src/index.js"]
 #CMD ["npm run build"]
