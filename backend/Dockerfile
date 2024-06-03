@@ -27,5 +27,5 @@ COPY controller/endpoint.go /usr/local/go/src/employees/controller/
 EXPOSE 8080
  
 # Specifies the executable command that runs when the container starts
-CMD ["/docker-gs-ping"]
+# CMD ["/docker-gs-ping"]
 CMD [ “DB_HOST=<POSTGRES_HOST> DB_USER=<POSTGRES_USER> DB_PASSWORD=<POSTGRES_PASSWORD> DB_NAME=<POSTGRES_DB_NAME> DB_PORT=<POSTGRES_PORT> ALLOWED_ORIGINS=<ALLOWED_ORGINS_VALUE> go run main.go” ]
