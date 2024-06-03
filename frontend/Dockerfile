@@ -5,17 +5,16 @@ FROM node:14.17.0
 WORKDIR /usr/src/app
 
 # Copying the files
-COPY public/ /usr/src/app/public
-COPY src/ /usr/src/app/src
-COPY package*.json /usr/src/app/
+COPY public/ public/
+COPY src/ src/
+COPY package*.json ./
 
-# Eexcuting the command
+# Installing dependencies
 RUN npm install
 
 # Tells Docker which network port your container listens on
 EXPOSE 3000
 
-# Execute post launching of conatainer
-CMD ["npm", "start"]
-#CMD ["npm", "./src/index.js"]
-#CMD ["npm run build"]
+# Execute post launching of container
+CMD ["npm start"]
+##CMD ["npm run build"]
