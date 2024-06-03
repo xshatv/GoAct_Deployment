@@ -18,11 +18,6 @@ COPY repository/repository.go /usr/local/go/src/employees/repository/
 COPY model/employee.go /usr/local/go/src/employees/model/
 COPY controller/endpoint.go /usr/local/go/src/employees/controller/
 
-# Builds your app with optional configuration
-# RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
-# RUN go get ./...
-# RUN DB_HOST=<POSTGRES_HOST> DB_USER=<POSTGRES_USER> DB_PASSWORD=<POSTGRES_PASSWORD> DB_NAME=<POSTGRES_DB_NAME> DB_PORT=<POSTGRES_PORT> ALLOWED_ORIGINS=<ALLOWED_ORGINS_VALUE> go run main.go
-
 # Tells Docker which network port your container listens on
 EXPOSE 8080
  
