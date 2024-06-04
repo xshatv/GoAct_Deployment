@@ -1,5 +1,5 @@
 # Taking base image
-FROM node:14.17.0
+FROM node:14-alpine
 
 # Initializing the work directory
 WORKDIR /usr/src/app
@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 # Copying the files
 COPY public/ public/
 COPY src/ src/
-COPY package*.json ./
+COPY ./package*.json ./
 
 # Installing dependencies
 RUN npm install
@@ -16,5 +16,5 @@ RUN npm install
 EXPOSE 3000
 
 # Execute post launching of container
-CMD ["npm start"]
-##CMD ["npm run build"]
+#CMD ["npm", "start", "--loglevel", "verbose"]
+ENTRYPOINT ["npm", "start"]
