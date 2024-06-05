@@ -8,7 +8,7 @@ WORKDIR /app
 COPY go.mod go.sum ./
 
 # Copy the startup script
-COPY start.sh /app/startbackend.sh
+COPY startbackend.sh /app/startbackend.sh
 
 # Make the script executable
 RUN chmod +x /app/startbackend.sh
