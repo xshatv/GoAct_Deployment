@@ -10,7 +10,7 @@ COPY src/ src/
 COPY ./package*.json ./
 
 # Copy the startup script
-COPY start.sh /app/startfrontend.sh
+COPY startfrontend.sh /app/startfrontend.sh
 
 # Make the script executable
 RUN chmod +x /app/startfrontend.sh
