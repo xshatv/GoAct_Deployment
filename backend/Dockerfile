@@ -23,4 +23,4 @@ EXPOSE 8080
  
 # Specifies the executable command that runs when the container starts
 # CMD ["/docker-gs-ping"]
-CMD [ “DB_HOST=<POSTGRES_HOST> DB_USER=<POSTGRES_USER> DB_PASSWORD=<POSTGRES_PASSWORD> DB_NAME=<POSTGRES_DB_NAME> DB_PORT=<POSTGRES_PORT> ALLOWED_ORIGINS=<ALLOWED_ORGINS_VALUE> go run main.go” ]
+ENTRYPOINT [ “DB_HOST=postgresql1.cnlcckmmoogp.ap-south-1.rds.amazonaws.com DB_USER=postgres DB_PASSWORD=admin123 DB_NAME=postgres DB_PORT=5432 ALLOWED_ORIGINS=<ALLOWED_ORGINS_VALUE> go run main.go” ]
