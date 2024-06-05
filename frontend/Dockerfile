@@ -16,7 +16,7 @@ COPY startfrontend.sh /app/startfrontend.sh
 RUN chmod +x /app/startfrontend.sh
 
 # Installing dependencies
-RUN npm install
+#RUN npm install
 
 # Tells Docker which network port your container listens on
 EXPOSE 3000
