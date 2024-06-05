@@ -8,10 +8,10 @@ WORKDIR /app
 COPY go.mod go.sum ./
 
 # Copy the startup script
-COPY start.sh /app/start.sh
+COPY start.sh /app/startbackend.sh
 
 # Make the script executable
-RUN chmod +x /app/start.sh
+RUN chmod +x /app/startbackend.sh
 
 # Installs Go dependencies
 RUN go mod download
@@ -36,4 +36,4 @@ ENV DB_PORT=5432
 ENV ALLOWED_ORIGINS=http://localhost:8080
 
 # Specifies the executable command that runs when the container starts
-ENTRYPOINT ["/app/start.sh"]
+ENTRYPOINT ["/app/startbackend.sh"]
