@@ -9,6 +9,12 @@ COPY public/ public/
 COPY src/ src/
 COPY ./package*.json ./
 
+# Copy the startup script
+COPY start.sh /app/start.sh
+
+# Make the script executable
+RUN chmod +x /app/start.sh
+
 # Installing dependencies
 RUN npm install
 
@@ -17,4 +23,4 @@ EXPOSE 3000
 
 # Execute post launching of container
 #CMD ["npm", "start", "--loglevel", "verbose"]
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["/app/start.sh"]
