@@ -3,14 +3,20 @@ FROM golang:1.19
 
 # Creates an app directory to hold your app’s source code
 WORKDIR /app
- 
-# Copies everything from your root directory into /app
+
+# Copies go.mod and go.sum for dependency resolution
 COPY go.mod go.sum ./
+
+# Copy the startup script
+COPY start.sh /app/start.sh
+
+# Make the script executable
+RUN chmod +x /app/start.sh
 
 # Installs Go dependencies
 RUN go mod download
 
-# Copying all files with .go extension
+# Copy all source files to the working directory
 COPY *.go ./
 COPY service/service.go /usr/local/go/src/employees/service/
 COPY routes/routes.go /usr/local/go/src/employees/routes/
@@ -20,7 +26,14 @@ COPY controller/endpoint.go /usr/local/go/src/employees/controller/
 
 # Tells Docker which network port your container listens on
 EXPOSE 8080
- 
+
+# Specifies the environment variables
+ENV DB_HOST=postgresql1.cnlcckmmoogp.ap-south-1.rds.amazonaws.com
+ENV DB_USER=postgres
+ENV DB_PASSWORD=admin123
+ENV DB_NAME=postgres
+ENV DB_PORT=5432
+ENV ALLOWED_ORIGINS=http://localhost:8080
+
 # Specifies the executable command that runs when the container starts
-# CMD ["/docker-gs-ping"]
-ENTRYPOINT [ “DB_HOST=postgresql1.cnlcckmmoogp.ap-south-1.rds.amazonaws.com DB_USER=postgres DB_PASSWORD=admin123 DB_NAME=postgres DB_PORT=5432 ALLOWED_ORIGINS=<ALLOWED_ORGINS_VALUE> go run main.go” ]
+ENTRYPOINT ["/app/start.sh"]
