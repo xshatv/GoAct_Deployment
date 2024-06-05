@@ -1,5 +1,4 @@
 #!/bin/sh
-
 # Start the NPM
 npm start
 
