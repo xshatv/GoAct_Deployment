@@ -33,7 +33,7 @@ ENV DB_USER=postgres
 ENV DB_PASSWORD=admin123
 ENV DB_NAME=postgres
 ENV DB_PORT=5432
-ENV ALLOWED_ORIGINS=http://localhost:8080
+ENV ALLOWED_ORIGINS=http://localhost:3000
 
 # Specifies the executable command that runs when the container starts
 ENTRYPOINT ["/app/startbackend.sh"]
