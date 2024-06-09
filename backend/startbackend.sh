@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 
 # Installing all dependencies
 go get ./...
