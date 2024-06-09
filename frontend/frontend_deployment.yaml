@@ -15,7 +15,7 @@ spec:
         app: frontend-app
     spec:
       containers:
-      - name: frontend
+      - name: frontend-con
         image: frontend_img:1.1
         ports:
         - containerPort: 3000
