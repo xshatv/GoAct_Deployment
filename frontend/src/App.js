@@ -24,6 +24,27 @@ function App() {
     }
 
     async function createEmployee() {
+        try {
+            await axios.post(SERVER_URL, {
+                name: employeeDetails.name,
+                employee_id: parseInt(employeeDetails.employeeId)
+            });
+            await fetchEmployees();
+        } catch (error) {
+            console.error('Error adding employee:', error);
+            if (error.response) {
+                console.error('Response data:', error.response.data);
+                console.error('Response status:', error.response.status);
+                console.error('Response headers:', error.response.headers);
+            } else if (error.request) {
+                console.error('Request data:', error.request);
+            } else {
+                console.error('Error message:', error.message);
+            }
+        }
+       setEmployeeDetails({...employeeDetails, name: '', employeeId: 0});
+    }
+/*    async function createEmployee() {
         await axios.post(SERVER_URL, {
             name: employeeDetails.name,
             employee_id: parseInt(employeeDetails.employeeId)
@@ -32,19 +53,17 @@ function App() {
                 await fetchEmployees()
             })
             .catch(function (error) {
-                console.log(`error adding employee${JSON.stringfy(error)}`);
+                console.log(`error adding employee${JSON.stringify(error)}`);
             });
         setEmployeeDetails({...employeeDetails, name: '', employeeId: 0})
     }
-
+*/
     const handleSetName = (newName) => {
         setEmployeeDetails({...employeeDetails, name: newName.target.value})
     }
-
     const handleSetEmployeeId = (employeeId) => {
         setEmployeeDetails({...employeeDetails, employeeId: employeeId.target.value})
     }
-
     useEffect(() => {
         fetchEmployees();
     }, [])
@@ -64,7 +83,7 @@ function App() {
                     }}
                     variant="standard"
                     onChange={handleSetEmployeeId}
-                />
+               />
                 <Button variant="contained" onClick={createEmployee}>Add Employees</Button>
             </div>
             <TableContainer component={Paper} style={{
