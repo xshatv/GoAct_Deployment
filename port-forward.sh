@@ -1,3 +1,4 @@
+#!/bin/sh
 # Function to handle termination of background processes
 terminate() {
     echo "Terminating port-forward processes..."
