@@ -28,4 +28,3 @@ We have to download the node(14.17.4) and go(1.22.4) package
 9. cd to go application files
 10. run, go get ./...
 11. run, DB_HOST=<POSTGRES_HOST> DB_USER=<POSTGRES_USER> DB_PASSWORD=<POSTGRES_PASSWORD> DB_NAME=<POSTGRES_DB_NAME> DB_PORT=<POSTGRES_PORT> ALLOWED_ORIGINS=<ALLOWED_ORGINS_VALUE> go run main.go
-12. 
