@@ -27,4 +27,5 @@ We have to download the node(14.17.4) and go(1.22.4) package
 8. re-launch the terminal/open new terminal
 9. cd to go application files
 10. run, go get ./...
-11. run, DB_HOST=postgresql1.cnlcckmmoogp.ap-south-1.rds.amazonaws.com DB_USER=postgres DB_PASSWORD=admin123 DB_NAME=postgres DB_PORT=5432 go run main.go
+11. run, DB_HOST=<POSTGRES_HOST> DB_USER=<POSTGRES_USER> DB_PASSWORD=<POSTGRES_PASSWORD> DB_NAME=<POSTGRES_DB_NAME> DB_PORT=<POSTGRES_PORT> ALLOWED_ORIGINS=<ALLOWED_ORGINS_VALUE> go run main.go
+12. 
