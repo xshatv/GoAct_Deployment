@@ -9,7 +9,7 @@ We have to download the node(14.17.4) and go(1.22.4) package
 4. pwd, and copy the bin path.
 5. sudo nano ~/.bashrc
 6. go to end of the file
-7. export PATH="<BIN-LOCATION-OF-APPLICATION>:$PATH"
+7. export PATH="/BIN/LOCATION/OF/APPLICATION:$PATH"
 8. re-launch the terminal/open new terminal
 9. cd to react application files
 10. run, npm install
@@ -23,7 +23,7 @@ We have to download the node(14.17.4) and go(1.22.4) package
 4. pwd, and copy the bin path.
 5. sudo nano ~/.bashrc
 6. go to end of the file
-7. export PATH="<BIN-LOCATION-OF-APPLICATION>:$PATH"
+7. export PATH="/BIN/LOCATION/OF/APPLICATION:$PATH"
 8. re-launch the terminal/open new terminal
 9. cd to go application files
 10. run, go get ./...
