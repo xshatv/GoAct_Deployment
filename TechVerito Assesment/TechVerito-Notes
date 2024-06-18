@@ -1,0 +1,125 @@
+
+
+Postgres13 with Go1.19
+
+
+Master-Machine: User Data for instance launch
+
+#!/bin/bash
+sudo apt-get update -y
+sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+wget -O- https://apt.releases.hashicorp.com/gpg | \ gpg --dearmor | \ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+gpg --no-default-keyring \ --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \ --fingerprint
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \ https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \ sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update -y
+sudo apt-get install terraform -y
+touch ~/.bashrc
+terraform -install-autocomplete
+# Install Ansible
+sudo apt update -y
+sudo apt install software-properties-common -y
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible -y
+
+
+Execute TF code in Master-Machine:
+
+
+
+------------------------------------------------------
+
+
+JENKINS JOBs:
+
+JOB 1 - Frontend Build Dockerfile
+# killing the kubectl processes which are forwarding the port
+kill $(pgrep -f "kubectl port-forward")
+
+# Removing existing deployment and service
+kubectl delete deployments.apps frontend-deployment && kubectl delete service frontend-service
+
+# Setting minikube's docker daemon as primary
+eval $(minikube docker-env)
+
+# Removing focefully existing docker image
+docker rmi -f frontend_img:1.1
+
+# Creating image from Dockerfile
+docker build -t frontend_img:1.1 /home/ubuntu/jenkins/workspace/Frontend_build_dockerfile/frontend/
+--------------------------------------------------------------
+
+JOB 2 - Frontend Deploy Dockerfile
+# Deploying the frontend deployment
+kubectl apply -f /home/ubuntu/jenkins/workspace/Frontend_build_dockerfile/frontend/frontend_deployment.yaml
+
+# Deploying the frontend service
+kubectl apply -f /home/ubuntu/jenkins/workspace/Frontend_build_dockerfile/frontend/frontend_service.yaml 
+--------------------------------------------------------------
+
+JOB 3 - Backend Build Dockerfile
+# Removing existing deployment and service
+kubectl delete deployments.apps backend-deployment && kubectl delete service backend-service
+
+# Setting minikube's docker daemon as primary
+eval $(minikube docker-env)
+
+# Removing focefully existing docker image
+docker rmi -f backend_img:1.1
+
+# Creating image from Dockerfile
+docker build -t backend_img:1.1 /home/ubuntu/jenkins/workspace/Frontend_build_dockerfile/frontend/
+----------------------------------------------------------------
+
+JOB 4 - Backend Deploy Dockerfile
+# Deploying the deployment
+kubectl apply -f /home/ubuntu/jenkins/workspace/Frontend_build_dockerfile/backend/backend_deployment.yaml
+
+# Deploying the service
+kubectl apply -f /home/ubuntu/jenkins/workspace/Frontend_build_dockerfile/backend/backend_service.yaml
+
+# Providing executable permissions to port forward script
+chmod +x /home/ubuntu/jenkins/workspace/Frontend_build_dockerfile/port-forward.sh
+
+# Starting the script for port forward
+bash /home/ubuntu/jenkins/workspace/Frontend_build_dockerfile/port-forward.sh
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+
+kubectl port-forward --address 0.0.0.0 service/frontend-service 3000:3000> port-forward-frontend.log &
+
+kubectl port-forward --address 0.0.0.0 service/backend-service 8080:8080 > port-forward-backend.log &
+
+
+
+kill $(pgrep -f "kubectl port-forward")
+
+
+
+
+
+
+
+
+----ERRORs in DevOps--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	=> ERROR! unexpected parameter type in action Ansible Playbook:
+https://serverfault.com/questions/1135627/error-unexpected-parameter-type-in-action-ansible-playbook
+
+	=> While validating/applying terrafrom using "terraform module"
+Error: Cycle: module.network-resources.var.vpc_id (expand), module.network-resources (close) on terraform validate
+
+
+	=> Building Dockerfile for Go Lang application:
+https://dev.to/sadeedpv/creating-a-dockerfile-for-your-go-backend-20n5
+https://docs.docker.com/language/golang/build-images/
+https://faun.pub/understanding-go-mod-and-go-sum-5fd7ec9bcc34
+
+	=> Building Dockerfile for a REACT application
+https://www.freecodecamp.org/news/how-to-dockerize-a-react-application/
+https://stackoverflow.com/questions/50286927/i-am-getting-error-in-console-you-need-to-enable-javascript-to-run-this-app-r
+
+
+------------------------------------------------------------------------------------------------
