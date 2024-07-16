@@ -1,4 +1,4 @@
-# Employee Management System :
+# EMS:
   It's an application to add and view employee Details.
 
 # Backend
